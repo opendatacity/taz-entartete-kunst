@@ -7,8 +7,9 @@ var H = (function () {
 		return n;
 	}
 	
-	function imgSrc (pgNumber) {
-		return '/images/raubkunst_Page_'+H.zerofill(pgNumber, 3)+'_Image_0001.jpg';
+	function imgSrc (pgNumber, thumbnail) {
+		if (thumbnail) return '/images/thumbs/'+pgNumber+'.jpg'
+		return '/images/reader/'+pgNumber+'.jpg';
 	}
 
 	return {

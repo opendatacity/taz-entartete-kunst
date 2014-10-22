@@ -33,8 +33,8 @@ function PageNav (el, options) {
 			$a = $('<a>');
 
 			$img.attr({
-				src: H.imgSrc(pgNumber),
-				alt: "" + pgNumber
+				src: H.imgSrc(pgNumber, true),
+				alt: '' + pgNumber
 			});
 			$a.attr('href', '#reader-'+pgNumber);
 			$a.data('index', index);

@@ -28,13 +28,23 @@ function Reader (element) {
 		$body.removeClass('blur');
 	}
 	function handleScroll () {
-		var i=0;
+		var i=0, found=null;
 		for (var l=pageElements.length; i<l; i++) {
-			var p = pageElements[i].position().top + pageElements[i].height()/2;
-			if (p >= 0) break;
+			var $el = pageElements[i],
+			$img = $el.find('img.lazy'),
+			y = $el.position().top,
+			h = $el.height(),
+			fromTop = y + h,
+			fromBottom = $(window).height() - y,
+			center = y + h/2;
+			if (fromTop > -200 && fromBottom > -200) {
+				$img.attr('src', $img.attr('data-highres'));
+				$img.removeClass('lazy');
+			}
+			if (center >= 0 && found === null) found = i;
 		}
-		if (i !== currentIndex) {
-			currentIndex = i;
+		if (found !== currentIndex) {
+			currentIndex = found;
 			$this.trigger('reader:pagechange', currentIndex);
 		}
 	}
@@ -58,8 +68,11 @@ function Reader (element) {
 	$(window).resize(handleScroll);
 
 	function pageConstructor (pgNumber) {
-		var $p = $('<p>'), $img = $('<img>')
-		$img.attr('src', H.imgSrc(pgNumber));
+		var $p = $('<p>'), $img = $('<img>');
+		$img.addClass('lazy');
+		$img.attr('src', H.imgSrc(pgNumber, true));
+		$img.attr('data-highres', H.imgSrc(pgNumber));
+		$img.attr(config.pageSize);
 		$p.append($img);
 		$p.attr('id', 'reader-' + pgNumber);
 		pageElements.push($p);
