@@ -35,6 +35,7 @@ function init () {
 	dataSource('artists'),
 	dataSource('merchants')
 	);
+	typeahead.focus();
 	return typeahead;
 }
 
