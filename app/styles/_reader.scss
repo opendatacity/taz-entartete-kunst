@@ -1,4 +1,5 @@
 .reader-overlay {
+	@extend %no-select;
 	$nav-width: 18px;
 	$nav-padding: 15px;
 

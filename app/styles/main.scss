@@ -2,6 +2,7 @@
 @import 'forms';
 @import 'search';
 @import 'pagenav';
+@import 'mixins';
 
 body {
 	background: #fafafa;
@@ -17,6 +18,10 @@ body {
 .blur .wrapper {
 	transform: scale(0.95);
 	// filter: blur(5px);
+}
+
+header, nav {
+	@extend %no-select;
 }
 
 h1, h2, .tf-query {
