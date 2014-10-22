@@ -1,0 +1,31 @@
+.pages {
+	list-style: none;
+	padding: 0;
+
+	li {
+		position: relative;
+		box-sizing: border-box;
+		border: 1px solid rgba(#000, .1);
+		background-color: #e3e1d3;
+		background-size: cover;
+		display: inline-block;
+		width: 100px;
+		height: 133px;
+		overflow: hidden;
+	}
+
+	.page-number {
+		position: absolute;
+		bottom: .2em;
+		right: .2em;
+		text-align: right;
+	}
+
+	img {
+		position: absolute;
+		z-index: 2;
+		top: -8%;
+		left: -8%;
+		width: 116%;
+	}
+}

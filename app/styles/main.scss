@@ -1,0 +1,49 @@
+@import 'reader';
+@import 'forms';
+@import 'search';
+@import 'pagenav';
+
+body {
+	background: #fafafa;
+	font-family: "Helvetica Neue", sans-serif;
+	color: #333;
+}
+
+.wrapper {
+	width: 100%;
+	transition: all .2s ease;
+
+}
+.blur .wrapper {
+	transform: scale(0.95);
+	// filter: blur(5px);
+}
+
+#read nav {
+	$padding: .5em;
+
+	border: 1px solid rgba(#000, .1);
+	border-left: none;
+	border-right: none;
+
+	background: rgba(#000, .05);
+	white-space: nowrap;
+	padding: $padding;
+	margin: 0 -$padding;
+	overflow: auto;
+
+	&:hover li {
+		opacity: .5;
+		will-change: opacity;
+	}
+
+	li {
+		margin: 0 .5em 0 0;
+		transition: opacity .1s ease;
+	}
+
+	li:hover {
+		opacity: 1;
+	}
+
+}

@@ -1,0 +1,56 @@
+.tf-query {
+	font-size: 1.2em;
+}
+
+.twitter-typeahead {
+	width: 100%;
+	input {
+		width: 100%;
+	}
+}
+
+.tt- {
+	$padding: .3em;
+	&dropdown-menu {
+		background: rgba(#fff, .9);
+		box-sizing: border-box;
+		border: 1px solid rgba(#000, .1);
+		border-top-color: #fff;
+		// margin-top: -1px;
+		padding: $padding;
+		width: 100%;
+
+		h3 {
+			font-size: .8em;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin: 0 auto;
+		}
+		.empty {
+			color: rgba(#000, .5);
+			font-style: italic;
+		}
+
+	}
+	&suggestion {
+		padding: $padding;
+		margin: ($padding) (-$padding);
+		p {
+			margin: 0;
+		}
+	}
+	&cursor {
+		background-color: #09f;
+		color: #fff;
+	}
+	&hint {
+		color: rgba(#000, .4);
+	}
+	&dataset-merchants {
+		padding: 1em $padding 0;
+		margin: 1em (-$padding) 0;
+		border-top: 1px solid rgba(#000, .1);
+	}
+}
+

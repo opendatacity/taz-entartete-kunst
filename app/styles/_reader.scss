@@ -1,0 +1,70 @@
+.reader-overlay {
+	$nav-width: 18px;
+	$nav-padding: 15px;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: auto;
+
+	padding: 0 2*($nav-width + $nav-padding);
+
+	background: rgba(#000, .8);
+
+	p {
+		// Make sure that part of the previous page is displayed when anchors are
+		// used by setting a negative margin-bottom
+		margin: 0 0 -3em;
+		padding: 2em 1em;
+		text-align: center;
+	}
+
+	img {
+		width: 100%;
+		max-width: 800px;
+		box-shadow: 0 .2em .5em rgba(#000, .3);
+	}
+
+	&.hidden {
+		display: none;
+	}
+
+	.btn {
+		position: fixed;
+		top: .5em;
+		right: .5em;
+	}
+
+	nav {
+		$width: $nav-width;
+		position: fixed;
+		padding: 0 $nav-padding;
+		overflow: auto;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		height: 100%;
+		width: $width;
+
+		transition: background .2s ease;
+
+		li {
+			width: $width;
+			height: $width * 1.3333;
+			margin-bottom: .3em;
+
+			opacity: .3;
+			transition: opacity .2s ease;
+	
+			&.active {
+				opacity: 1;
+			}
+		}
+
+		&:hover {
+			background: rgba(#000, .3);
+		}
+	}
+}

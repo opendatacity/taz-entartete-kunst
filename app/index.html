@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>raubkunst</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+		<!-- build:css styles/vendor.css -->
+		<!-- bower:css -->
+		<!-- endbower -->
+		<!-- endbuild -->
+
+		<!-- build:css styles/main.css -->
+		<link rel="stylesheet" href="styles/main.css">
+		<!-- endbuild -->
+
+	</head>
+	<body>
+
+		<div class="wrapper">
+
+			<header>
+				<h1>Raubkunst	</h1>
+			</header>
+
+			<section id="form">
+				<form action=""><input type="search" name="query" id="search-query" class="tf tf-query" placeholder="Nach Künstler·in oder Kunsthändler·in suchen"> <input type="submit"></form>
+			</section>
+
+			<section id="read">
+				<h2></h2>
+				<nav>
+				</nav>
+
+				<p>
+					<button class="btn btn-download" id="btn-download-currently-shown">Angezeigte Seiten herunterladen</button>
+					<button class="btn btn-download">Alle Seiten herunterladen</button>
+				</p>
+			</section>
+
+			<footer>
+				<p>Ein Projekt von OpenDataCity und taz.de.</p>
+				<p>Lizenz · Quellcode</p>
+			</footer>
+		</div>
+
+		<div class="reader">
+			
+		</div>
+
+		<!-- build:js scripts/vendor.js -->
+		<!-- bower:js -->
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+		<script src="bower_components/fuse.js/src/fuse.js"></script>
+		<!-- endbower -->
+		<!-- endbuild -->
+
+		<!-- build:js scripts/main.js -->
+		<script src="scripts/helpers.js"></script>
+		<script src="scripts/main.js"></script>
+		<script src="scripts/search.js"></script>
+		<script src="scripts/pagenav.js"></script>
+		<script src="scripts/reader.js"></script>
+		<script src="scripts/pdf.js"></script>
+		<!-- endbuild -->
+</body>
+</html>
