@@ -11,16 +11,15 @@ $.getJSON('data/raubkunst.json', function (data) {
 		artists: data[0],
 		merchants: data[1]
 	};
+	searchField = search.init();
+	searchField.on('typeahead:cursorchanged typeahead:autocompleted', function (ev, result) {
+		prepare(result);
+	});
+	searchField.on('typeahead:selected', function (ev, result) {
+		found(result);
+	});
 });
 
-searchField = search.init();
-searchField.on('typeahead:cursorchanged typeahead:autocompleted', function (ev, result) {
-	prepare(result);
-});
-searchField.on('typeahead:selected', function (ev, result) {
-	found(result);
-});
-debug = searchField;
 
 function prepare (result) {
 	pageNav.update(result, true);

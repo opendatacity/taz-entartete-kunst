@@ -1,27 +1,19 @@
 var search = (function () {
 
 var headers = {
-	artists: 'Künstler·innen', merchants: 'Händler·innen'
+	artists: 'Maler·innen', merchants: 'Händler·innen'
 }
 
 function dataSource (key) {
 
-	// var fuse = new Fuse(raubkunst[key], {keys: [0]});
+	var fuse = new Fuse(raubkunst[key], {keys: [0], threshold: 0.3, shouldSort: false, includeScore: true});
 
 	function find (query, callback) {
-		query = query.toLowerCase();
-		var results = [];
-		raubkunst[key].forEach(function (el) {
-			var index = el[0].toLowerCase().indexOf(query);
-			if (index !== -1) {
-				el.relevance = (1 - index / el[0].length) * el[1].length;
-			} else {
-				el.relevance = 0;
-			}
-			if (el.relevance > 0) results.push(el);
+		var results = fuse.search(query);
+		results.sort(function (a, b) {
+			return ((1-b.score) * b.item[1].length) - ((1-a.score) * a.item[1].length);
 		});
-		results.sort(function (a, b) { return b.relevance - a.relevance; });
-		callback(results.slice(0, 10));
+		callback(results.map(function (r) { return r.item; }).slice(0, 10));
 	}
 
 	return {

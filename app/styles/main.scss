@@ -19,6 +19,14 @@ body {
 	// filter: blur(5px);
 }
 
+h1, h2, .tf-query {
+	font-weight: 300;
+}
+
+#read h2 {
+	display: none;
+}
+
 #read nav {
 	$padding: .5em;
 

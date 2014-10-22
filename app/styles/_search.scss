@@ -1,8 +1,20 @@
 .tf-query {
-	font-size: 1.2em;
+	-webkit-appearance: textfield;
+	font-size: 1.5em;
+	padding: .5em;
+	margin: 0 (-.5em);
+	background: transparent;
+	border: none;
+	outline: none;
+	box-sizing: content-box;
+
+	&::-webkit-search-decoration {
+		-webkit-appearance: none;
+	}
 }
 
 .twitter-typeahead {
+	padding: 0;
 	width: 100%;
 	input {
 		width: 100%;

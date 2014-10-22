@@ -16,6 +16,9 @@ function Reader (element) {
 	$closeButton.addClass('btn btn-close');
 	$overlay.append($closeButton);
 
+	var $title = $('<h2>');
+	$overlay.append($title);
+
 	function showOverlay () {
 		$overlay.removeClass('hidden');
 		$body.addClass('blur');
@@ -70,6 +73,7 @@ function Reader (element) {
 			$container.append($page);
 		});
 		pageNav.update(document);
+		$title.text(document[0]);
 	}
 
 	this.show = function (document) {
