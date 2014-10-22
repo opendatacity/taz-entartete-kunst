@@ -46,6 +46,7 @@ function PageNav (el, options) {
 	}
 
 	this.update = function (contents, argNoImages) {
+		$container.addClass('result');
 		currentContents = contents;
 		noImages = !!argNoImages;
 		$('h2').text(contents[0]);
@@ -54,6 +55,7 @@ function PageNav (el, options) {
 	}
 
 	this.clear = function () {
+		$container.addClass('empty');
 		$target.empty();
 		pageElements = [];
 	}

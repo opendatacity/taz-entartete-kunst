@@ -20,7 +20,9 @@ $.getJSON('data/raubkunst.json', function (data) {
 	});
 });
 
-
+function clear () {
+	pageNav.clear();
+}
 function prepare (result) {
 	pageNav.update(result, true);
 }

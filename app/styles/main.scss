@@ -40,6 +40,13 @@ h1, h2, .tf-query {
 	margin: 0 -$padding;
 	overflow: auto;
 
+	p {
+		white-space: normal;
+	}
+	&.result p {
+		display: none;
+	}
+
 	&:hover li {
 		opacity: .5;
 		will-change: opacity;

@@ -1,7 +1,7 @@
 var search = (function () {
 
 var headers = {
-	artists: 'Maler·innen', merchants: 'Händler·innen'
+	artists: 'Künstler·innen', merchants: 'Händler·innen'
 }
 
 function dataSource (key) {
