@@ -1,13 +1,13 @@
 Performance:
- ❑ Thumbnails generieren
- ❑ Lazy Loading
+ ✔ Thumbnails generieren @done (14-10-22 19:18)
+ ✔ Lazy Loading @done (14-10-22 19:34)
 
 Features:
  ❑ PDFs generieren
  ❑ Texte einfügen
  ❑ Discover-Feature
  ❑ Links verkabeln
- ❑ iframe
+ ✔ iframe @done (14-10-23 14:25)
 
 Styling:
  ❑ Buttons
