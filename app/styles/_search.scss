@@ -1,12 +1,38 @@
+#form {
+	margin-bottom: .2em;
+}
+
+%dirty-field, .dirty .tf-query {
+	padding: .2em;
+	background: rgba(#fff, .7) !important;
+	border-color: rgba(#000, .1);
+	outline: none;
+}
+
 .tf-query {
 	-webkit-appearance: textfield;
+
+	border: 1px solid transparent;
+	background: transparent !important;
+	font-family: inherit;
 	font-size: 1.5em;
-	padding: .5em;
-	margin: 0 (-.5em);
-	background: transparent;
-	border: none;
-	outline: none;
-	box-sizing: content-box;
+	font-weight: 300;
+	padding: .2em 0;
+	margin: 0;
+	transition: all .2s ease;
+
+	&:focus, &:hover {
+		@extend %dirty-field;
+	}
+	&.tt-hint {
+		padding: .2em;
+	}
+	&:focus {
+		border-color: rgba(#000, .25);
+	}
+	&.tt-hint {
+		color: #000;
+	}
 
 	&::-webkit-search-decoration {
 		-webkit-appearance: none;

@@ -8,6 +8,8 @@ function Reader (element) {
 	$container.wrap($('<div class="reader-overlay">'));
 	$overlay = $container.parent();
 
+	$overlay.append($container.children());
+
 	var $pageNavContainer = $('<nav>');
 	$overlay.append($pageNavContainer);
 	var pageNav = new PageNav($pageNavContainer, { reader: this, readerNav: true });

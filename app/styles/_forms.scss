@@ -2,6 +2,29 @@ input[type="submit"] {
 	display: none;
 }
 
+button, %button, .button {
+	@extend %no-select;
+	$bg: #e2dabf;
+	background-color: $bg;
+	border: 1px solid darken($bg, 5%);
+	padding: .5em;
+	font: inherit;
+	font-weight: 300;
+	color: darken($bg, 50%);
+	cursor: pointer;
+
+	&:active, &:focus {
+		outline: none;
+		background-color: darken($bg, 12%);
+		border-color: darken($bg, 18%);
+	}
+
+	&:hover {
+		background-color: darken($bg, 6%);
+		border-color: darken($bg, 12%);
+	}
+}
+
 // .tf {
 // 	font: inherit;
 // 	padding: .2em;

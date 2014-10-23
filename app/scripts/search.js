@@ -41,7 +41,7 @@ function dataSource (key) {
 	}
 }
 
-var $form, $searchField, findGlobal;
+var $form, $searchField, findGlobal, clean, dirty;
 
 function init () {
 	var typeahead = $('#search-query').typeahead({
@@ -61,12 +61,37 @@ function init () {
 
 	typeahead.focus();
 
+	$(document).keydown(function (ev) {
+		var code = ev.keyCode;
+		if (code >= 65 && code <= 90 || code == 8) typeahead.focus();
+	});
+
 	return typeahead;
 }
+
+(function () {
+	var lastCleanState, isClean = true;
+	var $body = $(document.body);
+	clean = function (value) {
+		if (value) lastCleanState = value;
+		isClean = true;
+		$body.addClass('clean').removeClass('dirty');
+	}
+	dirty = function (value) {
+		if (value !== lastCleanState) {
+			if (isClean) { // avoid unnecessary DOM manipulation
+				isClean = false;
+				$body.removeClass('clean').addClass('dirty');
+			}
+		} else {
+			clean(value);
+		}
+	}
+})();
 
 function search (query) {
 	return findGlobal(query)[0];
 }
 
-return { init: init, query: search }
+return { init: init, query: search, clean: clean, dirty: dirty }
 })();

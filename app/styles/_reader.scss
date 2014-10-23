@@ -3,6 +3,8 @@
 	$nav-width: 18px;
 	$nav-padding: 15px;
 
+	color: rgba(#fff, .8);
+
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -37,14 +39,31 @@
 		position: fixed;
 		top: 14px;
 		right: 14px;
+		-webkit-appearance: none;
+		border: none;
+		color: inherit;
+		font-size: 1em;
+		padding: 0;
+		border-radius: 50%;
+		width: 1.8em;
+		height: 1.8em;
+		background-color: rgba(#000, .05);
+		cursor: pointer;
+
+		&:hover {
+			background-color: rgba(#000, .2);
+		}
+		&:focus, &:active {
+			background-color: rgba(#000, .5);
+			outline: none;
+		}
 	}
 
 	h2 {
 		position: fixed;
 		margin: 0;
-		top: 10px;
-		right: 50px;
-		color: rgba(#fff, .8);
+		top: 16px;
+		right: 55px;
 		font-size: 1.2em;
 		display: inline-block;
 		text-align: right;
@@ -79,6 +98,47 @@
 
 		&:hover {
 			background: rgba(#000, .3);
+		}
+	}
+
+	aside {
+		h3, dl {
+			margin: 0;
+		}
+
+		text-shadow: 0 1px 1px rgba(#000, .2);
+		border-radius: 4px;
+		font-size: .8em;
+		position: fixed;
+		bottom: 14px;
+		right: 14px;
+		text-align: left;
+		line-height: 1.3em;
+
+		dl {
+			display: none;
+		}
+		dt {
+			float: left;
+			min-width: 2.5em;
+			text-align: right;
+		}
+		dd {
+			font-weight: 300;
+			margin-left: 3.3em;
+		}
+		&:hover {
+			padding: .5em;
+			width: 20%;
+			min-width: 250px;
+			max-width: 100%;
+			background-color: rgba(#000, .8);
+			h3 {
+				display: none;
+			}
+			dl {
+				display: block;
+			}
 		}
 	}
 }
