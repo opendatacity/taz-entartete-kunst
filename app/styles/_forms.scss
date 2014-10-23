@@ -4,14 +4,16 @@ input[type="submit"] {
 
 button, %button, .button {
 	@extend %no-select;
-	$bg: #e2dabf;
+	$padding: .5em;
+	$bg: $button-color;
 	background-color: $bg;
 	border: 1px solid darken($bg, 5%);
-	padding: .5em;
+	padding: $padding;
 	font: inherit;
 	font-weight: 300;
 	color: darken($bg, 50%);
 	cursor: pointer;
+	display: inline-block;
 
 	&:active, &:focus {
 		outline: none;
@@ -22,6 +24,48 @@ button, %button, .button {
 	&:hover {
 		background-color: darken($bg, 6%);
 		border-color: darken($bg, 12%);
+	}
+
+	&-two-step {
+		$distance: 5em;
+
+		position: relative;
+		text-align: center;
+		overflow: hidden;
+
+		span {
+			transition: bottom .2s ease;
+		}
+
+		.step1 {
+			position: relative;
+			bottom: 0;
+		}
+		.step2 {
+			position: absolute;
+			padding: $padding 0;
+			left: 0;
+			width: 100%;
+			bottom: $distance;
+		}
+
+		&:not(.disabled):hover {
+			.step1 {
+				bottom: -$distance;
+			}
+			.step2 {
+				bottom: 0;
+			}
+		}
+	}
+
+	&.disabled, [disabled] {
+		$disabled-bg: desaturate($bg, 100%);
+		color: darken($disabled-bg, 10%);
+		pointer-events: none;
+		cursor: not-allowed;
+		background-color: rgba($disabled-bg, .2);
+		border-color: rgba($disabled-bg, .8);
 	}
 }
 

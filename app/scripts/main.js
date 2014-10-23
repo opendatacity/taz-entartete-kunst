@@ -48,6 +48,7 @@ function found (result) {
 	searchField.val(result[0]);
 	pageNav.update(result);
 	search.clean(result[0]);
+	
 	if (window.history.pushState) window.history.pushState(result[0], result[0], '?q='+result[0]);
 }
 function bestGuess (query, errorCallback) {

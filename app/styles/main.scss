@@ -1,3 +1,5 @@
+@import 'fonts';
+@import 'colors';
 @import 'reader';
 @import 'forms';
 @import 'search';
@@ -6,7 +8,7 @@
 
 body {
 	background: #fafafa;
-	font-family: "Helvetica Neue", sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", sans-serif;
 	color: #333;
 }
 
@@ -22,6 +24,9 @@ body {
 
 header, nav {
 	@extend %no-select;
+}
+footer {
+	font-size: .8em;
 }
 
 h1, h2, h3, .tf-query {
@@ -40,7 +45,12 @@ h1, h2, h3, .tf-query {
 }
 
 a {
+	color: $link-color;
 	text-decoration: none;
+	border-bottom: 1px solid rgba($link-color, .1);
+	&:hover {
+		border-bottom-color: rgba($link-color, .5);
+	}
 }
 
 #read nav {
