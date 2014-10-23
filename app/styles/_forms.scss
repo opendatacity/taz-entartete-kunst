@@ -3,7 +3,7 @@ input[type="submit"] {
 }
 
 button, %button, .button {
-	@extend %no-select;
+	user-select: none;
 	$padding: .5em;
 	$bg: $button-color;
 	background-color: $bg;

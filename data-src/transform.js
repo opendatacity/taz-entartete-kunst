@@ -19,9 +19,10 @@ function pageMap (old) {
 
 function process (index) { return function (err, data) {
 	data = (""+data)
+		.trim()
 		.split(/\n/)
 		.map(function (row) {
-			row = row.split(/\t+/);
+			row = row.trim().split(/\t+/);
 			return [
 				row.shift(),
 				row.map(function (n) { return pageMap(n, 10); })

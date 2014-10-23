@@ -48,6 +48,7 @@ function found (result) {
 	searchField.val(result[0]);
 	pageNav.update(result);
 	search.clean(result[0]);
+	artistDownloadButton(result);
 	
 	if (window.history.pushState) window.history.pushState(result[0], result[0], '?q='+result[0]);
 }
@@ -61,6 +62,25 @@ function bestGuess (query, errorCallback) {
 	return false;
 }
 
+artistDownloadButton = (function () {
+	var $btn = $('#artist-download'),
+	$desc = $btn.find('.step1'),
+	$filesize = $btn.find('.js-filesize'),
+	initialDesc = $desc.text();
+	return function (item) {
+		if (!item) {
+			$desc.text(initialDesc);
+			$btn.attr('href')
+			$btn.addClass('disabled');
+			return false;
+		}
+		var name = item[0], pages = item[1].length, filename = H.filename(name);
+		$btn.removeClass('disabled');
+		$desc.text('Alle Seiten zu ' + name + ' herunterladen');
+		$btn.attr('href', 'pdf/' + filename + '.pdf');
+		$filesize.text('ca. ' + Math.ceil(pages*.2) + ' MB');
+	}
+})();
 
 $('#search-form').submit(function (ev) {
 	// If page is displayed in a frame, we want the default behaviour

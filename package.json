@@ -1,7 +1,9 @@
 {
   "name": "raubkunst",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "pdfkit": "~0.7.0"
+  },
   "devDependencies": {
     "connect": "^2.14.4",
     "connect-livereload": "^0.4.0",

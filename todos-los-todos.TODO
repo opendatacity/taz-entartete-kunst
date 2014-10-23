@@ -3,14 +3,14 @@ Performance:
  ✔ Lazy Loading @done (14-10-22 19:34)
 
 Features:
- ❑ PDFs generieren
- ❑ Texte einfügen
- ❑ Discover-Feature
+ ✔ PDFs generieren @done (14-10-23 22:01)
+ ✔ Texte einfügen @done (14-10-23 22:01)
+ ✘ Discover-Feature @cancelled (14-10-23 15:55)
  ❑ Links verkabeln
  ✔ iframe @done (14-10-23 14:25)
 
 Styling:
- ❑ Buttons
+ ✔ Buttons @done (14-10-23 22:01)
  ❑ Text
- ❑ Links
+ ✔ Links @done (14-10-23 22:01)
  ❑ Typeahead
