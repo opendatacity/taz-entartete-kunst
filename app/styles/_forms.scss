@@ -2,13 +2,13 @@ input[type="submit"] {
 	display: none;
 }
 
-button, %button, .button {
+$button-padding: .5em;
+@mixin button {
 	user-select: none;
-	$padding: .5em;
 	$bg: $button-color;
 	background-color: $bg;
 	border: 1px solid darken($bg, 5%);
-	padding: $padding;
+	padding: $button-padding;
 	font: inherit;
 	font-weight: 300;
 	color: darken($bg, 50%);
@@ -25,6 +25,18 @@ button, %button, .button {
 		background-color: darken($bg, 12%);
 		border-color: darken($bg, 18%);
 	}
+	
+	&.disabled, [disabled] {
+		$disabled-bg: desaturate($bg, 100%);
+		color: darken($disabled-bg, 10%);
+		pointer-events: none;
+		cursor: not-allowed;
+		background-color: rgba($disabled-bg, .2);
+		border-color: rgba($disabled-bg, .8);
+	}
+}
+button, %button, .button {
+	@include button;
 
 	&-two-step {
 		$distance: 5em;
@@ -43,7 +55,7 @@ button, %button, .button {
 		}
 		.step2 {
 			position: absolute;
-			padding: $padding 0;
+			padding: $button-padding 0;
 			left: 0;
 			width: 100%;
 			bottom: $distance;
@@ -57,15 +69,6 @@ button, %button, .button {
 				bottom: 0;
 			}
 		}
-	}
-
-	&.disabled, [disabled] {
-		$disabled-bg: desaturate($bg, 100%);
-		color: darken($disabled-bg, 10%);
-		pointer-events: none;
-		cursor: not-allowed;
-		background-color: rgba($disabled-bg, .2);
-		border-color: rgba($disabled-bg, .8);
 	}
 }
 

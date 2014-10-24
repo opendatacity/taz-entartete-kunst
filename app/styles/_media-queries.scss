@@ -1,17 +1,11 @@
-// Sorry for the hack.
-
-$increment: 40px;
-$offset: 150px;
-@for $i from 1 through 15 {
-	@media screen and (max-height: ($offset + 2*$i*$increment)) {
-		.tt-dropdown-menu {
-			max-height: $i*$increment;
-		}
-	}
-}
-
 @mixin break-wide {
 	@media screen and (min-width: 800px) { @content; }
+}
+@mixin break-short {
+	@media screen and (max-height: 600px) { @content; }
+}
+@mixin break-tall {
+	@media screen and (min-height: 601px) { @content; }
 }
 @mixin auto-margin {
 	@include break-wide {
