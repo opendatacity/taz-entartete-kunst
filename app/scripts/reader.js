@@ -3,7 +3,9 @@ function Reader (element) {
 	var pages;
 	var me = this, $this = $(this);
 
-	var currentDocument, currentIndex, pageElements = [];
+	var visible = false;
+
+	var currentDoc, currentIndex, pageElements = [];
 
 	$container.wrap($('<div class="reader-overlay">'));
 	$overlay = $container.parent();
@@ -24,10 +26,12 @@ function Reader (element) {
 	function showOverlay () {
 		$overlay.removeClass('hidden');
 		$body.addClass('blur');
+		visible = true;
 	}
 	function hideOverlay () {
 		$overlay.addClass('hidden');
 		$body.removeClass('blur');
+		visible = false;
 	}
 	function handleScroll () {
 		var i=0, found=null;
@@ -60,6 +64,7 @@ function Reader (element) {
 	};
 
 	$body.keydown(function (ev) {
+		if (!visible) return;
 		if (keyBehaviors[ev.keyCode]) return keyBehaviors[ev.keyCode](ev);
 	});
 	$overlay.on('click', 'img', function (ev) { ev.stopImmediatePropagation(); });
@@ -81,20 +86,20 @@ function Reader (element) {
 		return $p;
 	}
 
-	this.update = function (document) {
-		if (currentDocument === document) return;
+	this.update = function (doc) {
+		currentDoc = doc;
 		this.clear();
-		document[1].map(pageConstructor).forEach(function ($page) {
+		doc[1].map(pageConstructor).forEach(function ($page) {
 			$container.append($page);
 		});
-		pageNav.update(document);
-		$title.text(document[0]);
+		pageNav.update(doc);
+		$title.text(doc[0]);
 	}
 
-	this.show = function (document) {
-		if (document) {
-		if (currentDocument === document) return;
-			this.update(document);
+	this.show = function (doc) {
+		if (doc && currentDoc !== doc) {
+			currentIndex = 0;
+			this.update(doc);
 		}
 		showOverlay();
 		handleScroll();

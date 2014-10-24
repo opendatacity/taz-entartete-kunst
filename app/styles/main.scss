@@ -1,5 +1,6 @@
 @import 'fonts';
 @import 'colors';
+@import 'media-queries';
 @import 'reader';
 @import 'forms';
 @import 'search';
@@ -7,26 +8,40 @@
 @import 'mixins';
 
 body {
+	@extend %default-font;
 	background: #fafafa;
-	font-family: "Andada", "Helvetica Neue", sans-serif;
 	color: #333;
 }
 
-.wrapper {
-	width: 100%;
-	transition: all .2s ease;
-
+header, #read p, footer, #form, #license {
+	@include auto-margin;
 }
-.blur .wrapper {
-	transform: scale(0.95);
-	// filter: blur(5px);
+
+.hidden {
+	display: none;
 }
 
 header, nav {
 	@extend %no-select;
 }
 footer {
+	@extend %alternate-font;
 	font-size: .8em;
+	.primary {
+		float: left;
+	}
+	.secondary {
+		float: right;
+	}
+}
+
+#license {
+	clear: both;
+	@extend %alternate-font;
+	font-size: .8em;
+	h3 {
+		padding-top: 1.2em;
+	}
 }
 
 h1, h2, h3, .tf-query {

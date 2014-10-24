@@ -3,8 +3,10 @@
 var fs = require('fs'),
 PDF = require('pdfkit');
 
-function pt (mm) {
-	return mm / 25.4 * 72;
+var debug = false;
+
+function mm (x) {
+	return x / 25.4 * 72;
 }
 
 function filename (string) {
@@ -22,7 +24,7 @@ function filename (string) {
 	return string.replace(/[^a-z0-9]+/g, '-');
 }
 
-var size = [pt(210), pt(210*1.333)];
+var size = [mm(210), mm(210*1.333)];
 
 var fonts = {
 	regular: 'app/fonts/andada/andada-regular-webfont.ttf',
@@ -31,33 +33,33 @@ var fonts = {
 }
 
 function frontMatter (pdf) {
-	pdf.fontSize(9).text('', pt(30), pt(200));
+	pdf.fontSize(9).text('', mm(30), mm(200));
 
 	pdf.text(
 		'Die Seiten wurden aus einer digitalen Reproduktion '+
 		'eines maschinengeschriebenen Verzeichnisses des ',
-		{width: pt(110), continued: true}
+		{width: mm(110), continued: true}
 	)
 	.font(fonts.italic)
 	.text(
 		'Reichsministeriums für Volksaufklärung und Propaganda ',
-		{width: pt(110), continued: true}
+		{width: mm(110), continued: true}
 	)
 	.font(fonts.regular)
 	.text(
 		'um 1941/1942 entnommen. Diese wird vom Londoner ',
-		{width: pt(110), continued: true}
+		{width: mm(110), continued: true}
 	)
 	.font(fonts.italic)
 	.text(
 		'Victoria & Albert Museum ',
-		{width: pt(110), continued: true}
+		{width: mm(110), continued: true}
 	)
 	.font(fonts.regular)
 	.text(
 		'bereitgestellt und unterliegt einer Creative-Commons-Lizenz '+
 		'(CC-BY-NC 4.0 international).',
-		{width: pt(110)}
+		{width: mm(110)}
 	);
 
 	pdf.moveDown(.5);
@@ -73,16 +75,15 @@ function frontMatter (pdf) {
 	pdf.font(fonts.regular).text('https://apps.opendatacity.de/entartete-kunst/');
 }
 
-var debug = false;
-
-function makePDF (artist, skipAbbreviations) {
+function makePDF (artist) {
+	var skipAbbreviations = false;
 	var name = artist[0], pages = artist[1];
 
 	console.log(name);
 
 	var pdf = new PDF({
 		size: size,
-		margin: {left: pt(30), right: pt(30), top: pt(80), bottom: pt(30)}
+		margin: 0
 	});
 	pdf.pipe(fs.createWriteStream('app/pdf/' + filename(name) + '.pdf'));
 
@@ -91,23 +92,27 @@ function makePDF (artist, skipAbbreviations) {
 	pdf.fillColor('white');
 	pdf.font(fonts.regular);
 
-	pdf.fontSize(24).text('»Entartete Kunst«', pt(30), pt(80));
-	pdf.fontSize(16).text(name, pt(30), pt(100));
+	pdf.fontSize(24).text('»Entartete Kunst«', mm(30), mm(80));
+	pdf.fontSize(16).text(name, mm(30), mm(100));
 
 	frontMatter(pdf);
 
 
+	pdf.fontSize(9);
 	var page, i=0;
 	while (page = pages.shift()) {
+		if (page === 7) skipAbbreviations = true;
 		pdf.addPage();
-		pdf.image('app/images/reader/'+page+'.jpg', 0, 0, { width: pt(210) });
+		pdf.image('app/images/reader/'+page+'.jpg', 0, 0, { width: mm(210) });
+		pdf.fillColor('white');
+		pdf.text(page, size[0]-mm(40), size[1]-mm(12), { width: mm(30), align: 'right' });
 		i++;
 	}
 
 	if (!skipAbbreviations) {
 		// add abbreviations page
 		pdf.addPage();
-		pdf.image('app/images/reader/7.jpg', 0, 0, { width: pt(210) });
+		pdf.image('app/images/reader/7.jpg', 0, 0, { width: mm(210) });
 	}
 
 	pdf.end();
@@ -126,3 +131,7 @@ fs.readFile('app/data/raubkunst.json', function (err, data) {
 		artists.forEach(makePDF);
 	}
 });
+
+var all = [ 'Gesamtverzeichnis', [] ];
+for (i = 1; i <= 481; i++) all[1].push(i);
+if (!debug) makePDF(all, true);

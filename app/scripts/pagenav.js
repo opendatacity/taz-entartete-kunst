@@ -58,5 +58,6 @@ function PageNav (el, options) {
 		$container.addClass('empty');
 		$target.empty();
 		pageElements = [];
+		currentIndex = 0;
 	}
 }

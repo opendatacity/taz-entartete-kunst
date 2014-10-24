@@ -3,7 +3,7 @@ var Title = (function () {
 	return {
 		set: function (string) {
 			if (string && string !== '') {
-				document.title = initialTitle + ': ' + string;
+				document.title = string + ': ' + initialTitle;
 			} else {
 				document.title = initialTitle;
 			}

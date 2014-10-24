@@ -56,17 +56,17 @@
 
 }
 
-@font-face {
-    font-family: 'Andada';
-    src: url('../fonts/andada/andada-italic-webfont.eot');
-    src: url('../fonts/andada/andada-italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/andada/andada-italic-webfont.woff2') format('woff2'),
-         url('../fonts/andada/andada-italic-webfont.woff') format('woff'),
-         url('../fonts/andada/andada-italic-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
+// @font-face {
+//     font-family: 'Andada';
+//     src: url('../fonts/andada/andada-italic-webfont.eot');
+//     src: url('../fonts/andada/andada-italic-webfont.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/andada/andada-italic-webfont.woff2') format('woff2'),
+//          url('../fonts/andada/andada-italic-webfont.woff') format('woff'),
+//          url('../fonts/andada/andada-italic-webfont.ttf') format('truetype');
+//     font-weight: normal;
+//     font-style: italic;
 
-}
+// }
 
 @font-face {
     font-family: 'Andada';
@@ -78,4 +78,12 @@
     font-weight: bold;
     font-style: normal;
 
+}
+
+
+%default-font {
+    font-family: "Andada", "Linux Libertine", Georgia, serif;
+}
+%alternate-font {
+    font-family: "Helvetica Neue", sans-serif;
 }

@@ -1,3 +1,13 @@
+.wrapper {
+	width: 100%;
+	transition: all .2s ease;
+
+}
+.blur .wrapper {
+	transform: scale(0.9);
+	// filter: blur(5px);
+}
+
 .reader-overlay {
 	@extend %no-select;
 	$nav-width: 18px;
@@ -16,6 +26,8 @@
 
 	background: rgba(#000, .8);
 
+	animation: open-reader .2s ease 0s 1 normal;
+
 	p {
 		// Make sure that part of the previous page is displayed when anchors are
 		// used by setting a negative margin-bottom
@@ -31,11 +43,8 @@
 		box-shadow: 0 .2em .5em rgba(#000, .3);
 	}
 
-	&.hidden {
-		display: none;
-	}
-
 	.btn {
+		@extend %alternate-font;
 		position: fixed;
 		top: 14px;
 		right: 14px;
@@ -91,6 +100,8 @@
 			opacity: .3;
 			transition: opacity .2s ease;
 	
+			border: none;
+
 			&.active {
 				opacity: 1;
 			}
@@ -105,6 +116,7 @@
 		h3, dl {
 			margin: 0;
 		}
+
 
 		text-shadow: 0 1px 1px rgba(#000, .2);
 		border-radius: 4px;
@@ -140,5 +152,23 @@
 				display: block;
 			}
 		}
+	}
+}
+
+@keyframes open-reader {
+	0% {
+		display: none;
+		opacity: 0;
+		transform: scale(1);
+	}
+	5% {
+		// fix JS page measuring bug
+		display: none;
+		opacity: 0;
+		transform: scale(1.2);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
 	}
 }

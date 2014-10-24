@@ -1,5 +1,7 @@
 var search = (function () {
 
+var returnObject = {};
+
 var headers = {
 	artists: 'Künstler·innen', merchants: 'Händler·innen'
 }
@@ -63,7 +65,12 @@ function init () {
 
 	$(document).keydown(function (ev) {
 		var code = ev.keyCode;
-		if (code >= 65 && code <= 90 || code == 8) typeahead.focus();
+		if (code >= 65 && code <= 90 || code == 8) {
+			if (typeahead.is(':focus')) return;
+			typeahead.focus();
+			var pos = typeahead.val().length;
+			typeahead[0].setSelectionRange(pos, pos);
+		}
 	});
 
 	return typeahead;
@@ -76,12 +83,14 @@ function init () {
 		if (value) lastCleanState = value;
 		isClean = true;
 		$body.addClass('clean').removeClass('dirty');
+		$(returnObject).trigger('search:clean');
 	}
 	dirty = function (value) {
 		if (value !== lastCleanState) {
 			if (isClean) { // avoid unnecessary DOM manipulation
 				isClean = false;
 				$body.removeClass('clean').addClass('dirty');
+				$(returnObject).trigger('search:dirty');
 			}
 		} else {
 			clean(value);
@@ -93,5 +102,10 @@ function search (query) {
 	return findGlobal(query)[0];
 }
 
-return { init: init, query: search, clean: clean, dirty: dirty }
+returnObject.init = init;
+returnObject.query = search;
+returnObject.clean = clean;
+returnObject.dirty = dirty;
+return returnObject;
+
 })();

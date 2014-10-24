@@ -32,6 +32,12 @@ $.getJSON('data/raubkunst.json', function (data) {
 	searchField.on('typeahead:cursorchanged typeahead:autocompleted', function (ev, result) {
 		prepare(result);
 	});
+	$(search).on('search:dirty', function () { artistDownloadButton(); })
+
+	window.addEventListener('popstate', function (ev) {
+		$('#search-query').val(ev.state);
+		bestGuess(ev.state);
+	});
 
 	if (initialQuery) bestGuess(initialQuery);	
 });
@@ -78,7 +84,7 @@ artistDownloadButton = (function () {
 		$btn.removeClass('disabled');
 		$desc.text('Alle Seiten zu ' + name + ' herunterladen');
 		$btn.attr('href', 'pdf/' + filename + '.pdf');
-		$filesize.text('ca. ' + Math.ceil(pages*.2) + ' MB');
+		$filesize.text('ca. ' + Math.ceil((pages+1)*.11) + ' MB');
 	}
 })();
 
@@ -90,10 +96,6 @@ $('#search-form').submit(function (ev) {
 	var v = searchField.val();
 
 	bestGuess(v);
-});
-window.addEventListener('popstate', function (ev) {
-	searchField.val(ev.state);
-	bestGuess(ev.state);
 });
 	
 });

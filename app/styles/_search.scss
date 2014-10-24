@@ -50,6 +50,7 @@
 .tt- {
 	$padding: .2em;
 	&dropdown-menu {
+		@extend %no-select;
 		background: rgba(#fff, .9);
 		box-sizing: border-box;
 		border: 1px solid rgba(#000, .1);
@@ -57,17 +58,20 @@
 		// margin-top: -1px;
 		padding: $padding;
 		width: 100%;
+		overflow: auto;
+
+		cursor: default;
 
 		h3 {
-			font: .8em sans-serif;
+			@extend %alternate-font;
+			font-size: .8em;
 			font-weight: bold;
 			text-transform: uppercase;
 			letter-spacing: 1px;
-			margin: 0 auto;
+			margin: .4em auto;
 		}
 		.empty {
-			color: rgba(#000, .5);
-			font-style: italic;
+			color: rgba(#000, .3);
 		}
 
 	}
@@ -77,6 +81,8 @@
 		border: 1px solid transparent;
 		border-left: none;
 		border-right: none;
+		cursor: pointer;
+
 		p {
 			margin: 0;
 		}
@@ -88,10 +94,12 @@
 	&hint {
 		color: rgba(#000, .4);
 	}
+	&dataset-artists {
+		// width: 50%;
+	}
 	&dataset-merchants {
 		padding: 1em $padding 0;
 		margin: 1em (-$padding) 0;
 		border-top: 1px solid rgba(#000, .1);
 	}
 }
-

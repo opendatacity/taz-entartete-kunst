@@ -10,10 +10,11 @@ files.forEach(function (filename, i) {
 
 function pageMap (old) {
 	old = parseInt(old, 10);
-	if (old <= 148) return old + 1;
+	if (old <= 148) return old + 1; // maybe - 1 ?!
 	if (old <= 197) return old;
+	if (old == 198) return NaN;
 	if (old <= 431) return old - 1;
-	if (old <= 479) return old - 4;
+	if (old <= 479) return old + 2;
 	return NaN;
 }
 
