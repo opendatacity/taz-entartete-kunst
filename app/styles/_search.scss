@@ -51,14 +51,15 @@
 	$padding: .2em;
 	&dropdown-menu {
 		@extend %no-select;
-		background: rgba(#fff, .9);
+		background: rgba(#fff, .98);
 		box-sizing: border-box;
-		border: 1px solid rgba(#000, .1);
+		border: 1px solid rgba(#000, .2);
 		border-top-color: #fff;
 		max-height: 470px;
 		padding: $padding;
 		width: 100%;
 		overflow: auto;
+		box-shadow: 0 .3em .3em rgba(#000, .1);
 
 		cursor: default;
 
