@@ -10,7 +10,8 @@ function Reader (element) {
 	$container.wrap($('<div class="reader-overlay">'));
 	$overlay = $container.parent();
 
-	$overlay.append($container.children());
+	var $oldContents = $container.children();
+	$overlay.append($oldContents);
 
 	var $pageNavContainer = $('<nav>');
 	$overlay.append($pageNavContainer);
@@ -68,6 +69,12 @@ function Reader (element) {
 		if (keyBehaviors[ev.keyCode]) return keyBehaviors[ev.keyCode](ev);
 	});
 	$overlay.on('click', 'img', function (ev) { ev.stopImmediatePropagation(); });
+	// We're already doing this with css, but for some bizzare reason this causes
+	// a bug in Chrome where the height of the elements previously invisible
+	// is not re-calculated. This forces the brpwser to update the heights.
+	// That bug was not fun to work around.
+	$overlay.on('mouseenter', function (ev) { $(this).find('hideable').removeClass('hidden'); });
+	$overlay.on('mouseleave', function (ev) { $(this).find('hideable').addClass('hidden'); });
 	$overlay.click(hideOverlay);
 	hideOverlay();
 

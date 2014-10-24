@@ -117,7 +117,6 @@
 			margin: 0;
 		}
 
-
 		text-shadow: 0 1px 1px rgba(#000, .2);
 		border-radius: 4px;
 		font-size: .8em;
@@ -145,11 +144,12 @@
 			min-width: 250px;
 			max-width: 100%;
 			background-color: rgba(#000, .8);
-			h3 {
-				display: none;
-			}
 			dl {
 				display: block;
+				will-change: display;
+			}
+			h3 {
+				display: none;
 			}
 		}
 	}
