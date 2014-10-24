@@ -2,10 +2,10 @@
 	@media screen and (min-width: 800px) { @content; }
 }
 @mixin break-short {
-	@media screen and (max-height: 600px) { @content; }
+	@media screen and (max-height: 500px) { @content; }
 }
 @mixin break-tall {
-	@media screen and (min-height: 601px) { @content; }
+	@media screen and (min-height: 501px) { @content; }
 }
 @mixin auto-margin {
 	@include break-wide {
