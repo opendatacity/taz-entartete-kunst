@@ -5,6 +5,7 @@ $(function () {
 var reader = new Reader('.reader'),
 pageNav = new PageNav('#read nav', { reader: reader }),
 $body = $(document.body),
+$searchForm = $('#form form'),
 searchField;
 
 var initialQuery = (function () {
@@ -21,7 +22,14 @@ $.getJSON('data/raubkunst.json', function (data) {
 	};
 	searchField = search.init();
 
-	searchField.on('keyup mouseup', function () {
+	searchField.on('keyup mouseup', function (ev) {
+		// Somehow Safari won't trigger a submit on enter, so we'll do it manually.
+		if (ev.keyCode === 13) {
+			ev.preventDefault();
+			$searchForm.submit();
+			return;
+		}
+
 		// Timeout is necessary because of "clear" button that is displayed
 		// by some browsers. Otherwise the event will fire before the value
 		// has been cleared.
@@ -88,7 +96,7 @@ artistDownloadButton = (function () {
 	}
 })();
 
-$('#search-form').submit(function (ev) {
+$searchForm.submit(function (ev) {
 	// If page is displayed in a frame, we want the default behaviour
 	if (window !== window.top) return true;
 	ev.preventDefault();

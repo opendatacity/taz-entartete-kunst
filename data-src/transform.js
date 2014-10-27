@@ -8,13 +8,29 @@ files.forEach(function (filename, i) {
 	fs.readFile(filename, process(i));
 });
 
-function pageMap (old) {
+var pageMap = [ 
+	[ 2, 3 ],
+	[ 59, 74 ],
+	[ 61, 60 ],
+	[ 75, 76 ],
+	[ 101, 112 ],
+	[ 107, 102 ],
+	[ 117, 118 ],
+	[ 150, 150 ],
+	[ 198, NaN ],
+	[ 199, 198 ],
+	[ 335, 341 ],
+	[ 336, 334 ],
+	[ 343, 342 ],
+	[ 432, 434 ],
+	[ 480, NaN ]
+];
+
+function mapPage (old) {
 	old = parseInt(old, 10);
-	if (old <= 148) return old + 1; // maybe - 1 ?!
-	if (old <= 197) return old;
-	if (old == 198) return NaN;
-	if (old <= 431) return old - 1;
-	if (old <= 479) return old + 2;
+	for (var i=pageMap.length-1; i>=0; i--) {
+		if (old >= pageMap[i][0]) return old + pageMap[i][1] - pageMap[i][0];
+	}
 	return NaN;
 }
 
@@ -26,7 +42,7 @@ function process (index) { return function (err, data) {
 			row = row.trim().split(/\t+/);
 			return [
 				row.shift(),
-				row.map(function (n) { return pageMap(n, 10); })
+				row.map(function (n) { return mapPage(n, 10); })
 				.filter(function (n) { return !isNaN(n); })
 			];
 		});

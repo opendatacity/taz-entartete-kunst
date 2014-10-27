@@ -18,8 +18,11 @@ function PageNav (el, options) {
 			reader.goTo($(this).data('index'));
 		});
 		$(options.reader).on('reader:pagechange', function (ev, index) {
-			pageElements[currentIndex].removeClass('active');
-			pageElements[index].addClass('active');
+			try {
+				pageElements[currentIndex].removeClass('active');
+				pageElements[index].addClass('active');
+			}
+			catch (e) {}
 			currentIndex = index;
 		});
 	}

@@ -1,4 +1,6 @@
 .wrapper {
+	z-index: 0;
+
 	width: 100%;
 	transition: all .2s ease;
 
@@ -11,7 +13,9 @@
 .reader-overlay {
 	@extend %no-select;
 	$nav-width: 18px;
-	$nav-padding: 15px;
+	$nav-padding: 20px;
+
+	z-index: 10;
 
 	color: rgba(#fff, .8);
 
@@ -21,6 +25,7 @@
 	bottom: 0;
 	right: 0;
 	overflow: auto;
+	overflow-x: hidden;
 
 	padding: 0 2*($nav-width + $nav-padding);
 

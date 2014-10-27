@@ -38,7 +38,7 @@ function Reader (element) {
 		var i=0, found=null;
 		for (var l=pageElements.length; i<l; i++) {
 			var $el = pageElements[i],
-			$img = $el.find('img.lazy'),
+			$img = $el.find('.lazy'),
 			y = $el.position().top,
 			h = $el.height(),
 			fromTop = y + h,
