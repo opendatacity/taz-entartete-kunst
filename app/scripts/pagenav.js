@@ -1,6 +1,7 @@
 function PageNav (el, options) {
 	var $container = $(el),
 	$target = $('<ul class="pages">'),
+	$window = $(window),
 	pageElements = [],
 	currentContents,
 	currentIndex = 0,
@@ -14,15 +15,29 @@ function PageNav (el, options) {
 		$target.on('click', 'a', function (ev) {
 			ev.preventDefault();
 			ev.stopImmediatePropagation();
+			var index = $(this).data('index');
 			if (!options.readerNav) reader.show(currentContents);
-			reader.goTo($(this).data('index'));
+			// we need to wait until Safari knows the height of the indiviual pages.
+			window.setTimeout(function () { reader.goTo(index); }, 1);
 		});
 		$(options.reader).on('reader:pagechange', function (ev, index) {
 			try {
 				pageElements[currentIndex].removeClass('active');
-				pageElements[index].addClass('active');
+
+				var $el = pageElements[index];
+				$el.addClass('active');
+				// make sure the element remains within view
+				var top = $el.position().top, height = $el.height();
+				if (top + height > $window.height()) {
+					var $parent = $target.parent(), s = $parent.scrollTop();
+					$parent.scrollTop(s + top - $window.height() + height);
+				} else if (top < 0) {
+					var $parent = $target.parent();
+					$parent.scrollTop($parent.scrollTop() + top);
+				}
 			}
-			catch (e) {}
+			catch (e) {
+			}
 			currentIndex = index;
 		});
 	}

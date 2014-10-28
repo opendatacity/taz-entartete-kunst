@@ -6,6 +6,7 @@
 @import 'search';
 @import 'pagenav';
 @import 'mixins';
+@import 'footer';
 
 body {
 	@extend %default-font;
@@ -21,35 +22,16 @@ header, #read p, footer, #form, #license {
 	display: none;
 }
 
-header, nav {
-	@extend %no-select;
-}
-footer {
-	@extend %alternate-font;
-	font-size: .8em;
-	.primary {
-		float: left;
-	}
-	.secondary {
-		float: right;
-	}
+.number {
+	white-space: nowrap;
 }
 
-#license {
-	clear: both;
-	@extend %alternate-font;
-	font-size: .8em;
-	h3 {
-		padding-top: 1.2em;
-	}
+header, nav {
+	@extend %no-select;
 }
 
 h1, h2, h3, .tf-query {
 	font-weight: 300;
-}
-
-#read h2 {
-	display: none;
 }
 
 .clean nav p {
@@ -100,4 +82,8 @@ a {
 		opacity: 1;
 	}
 
+}
+
+#read h2 {
+	display: none;
 }

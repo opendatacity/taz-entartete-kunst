@@ -1,0 +1,32 @@
+footer {
+	@extend %alternate-font;
+	font-size: .8em;
+	.primary {
+		float: left;
+	}
+	.secondary {
+		float: right;
+	}
+	.logo {
+		border: none;
+		img {
+			margin-bottom: -4px;
+			border: none;
+		}
+		&:hover, &:focus { 
+			img {
+			}
+		}
+		&:active img {
+		}
+	}
+}
+
+#license {
+	clear: both;
+	@extend %alternate-font;
+	font-size: .8em;
+	h3 {
+		padding-top: 1.2em;
+	}
+}

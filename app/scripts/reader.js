@@ -3,6 +3,8 @@ function Reader (element) {
 	var pages;
 	var me = this, $this = $(this);
 
+	var undefined
+
 	var visible = false;
 
 	var currentDoc, currentIndex, pageElements = [];
@@ -61,24 +63,29 @@ function Reader (element) {
 	var keyBehaviors = {
 		27: function escape () { $closeButton.trigger('click'); },
 		37: function leftKey (ev) { me.previousPage(); return false; },
-		39: function rightKey (ev) { me.nextPage(); return false; }
+		39: function rightKey (ev) { me.nextPage(); return false; },
+		38: function upKey (ev) { me.scrollBy(-70); return false; },
+		40: function downKey (ev) { me.scrollBy(+70); return false; }
 	};
 
 	$body.keydown(function (ev) {
 		if (!visible) return;
 		if (keyBehaviors[ev.keyCode]) return keyBehaviors[ev.keyCode](ev);
 	});
-	$overlay.on('click', 'img', function (ev) { ev.stopImmediatePropagation(); });
+	$container.on('click', 'img', function (ev) {
+		ev.stopImmediatePropagation();
+		$(this).parent().toggleClass('zoom');
+	});
 	// We're already doing this with css, but for some bizzare reason this causes
 	// a bug in Chrome where the height of the elements previously invisible
-	// is not re-calculated. This forces the brpwser to update the heights.
+	// is not re-calculated. This forces the browser to update the heights.
 	// That bug was not fun to work around.
 	$overlay.on('mouseenter', function (ev) { $(this).find('hideable').removeClass('hidden'); });
 	$overlay.on('mouseleave', function (ev) { $(this).find('hideable').addClass('hidden'); });
 	$overlay.click(hideOverlay);
 	hideOverlay();
 
-	$overlay.scroll(handleScroll);
+	$container.scroll(handleScroll);
 	$(window).resize(handleScroll);
 
 	function pageConstructor (pgNumber) {
@@ -89,6 +96,7 @@ function Reader (element) {
 		$img.attr(config.pageSize);
 		$p.append($img);
 		$p.attr('id', 'reader-' + pgNumber);
+		$p.addClass('.page');
 		pageElements.push($p);
 		return $p;
 	}
@@ -117,11 +125,12 @@ function Reader (element) {
 		if (index < 0) {
 			pos = 0;
 		} else if (index > pageElements.length-1) {
-			pos = $container.height();
+			return;
+			// pos = $container.scrollTop() + $(window).height();
 		} else {
-			pos = $overlay.scrollTop() + pageElements[index].position().top;
+			pos = $container.scrollTop() + pageElements[index].position().top;
 		}
-		$overlay.scrollTop(pos);
+		$container.scrollTop(pos);
 	}
 
 	this.previousPage = function () {
@@ -130,6 +139,9 @@ function Reader (element) {
 	this.nextPage = function () {
 		if (currentIndex > pageElements.length - 1) return false;
 		this.goTo(currentIndex+1);
+	}
+	this.scrollBy = function (pixels) {
+		$container.scrollTop( $container.scrollTop() + pixels );
 	}
 
 	this.clear = function () {

@@ -1,7 +1,8 @@
 // Reads the generated JSON file and generates individual PDFs for each item
 
 var fs = require('fs'),
-PDF = require('pdfkit');
+PDF = require('pdfkit'),
+async = require('async');
 
 var debug = false;
 
@@ -75,7 +76,7 @@ function frontMatter (pdf) {
 	pdf.font(fonts.regular).text('https://apps.opendatacity.de/entartete-kunst/');
 }
 
-function makePDF (artist) {
+function makePDF (artist, callback) {
 	var skipAbbreviations = false;
 	var name = artist[0], pages = artist[1];
 
@@ -116,22 +117,34 @@ function makePDF (artist) {
 	}
 
 	pdf.end();
+	if (callback) callback();
 }
 
 fs.readFile('app/data/raubkunst.json', function (err, data) {
 	data = JSON.parse(data);
-	var item, artist;
 
 	if (debug) {
 		makePDF(data[0][0]);
 		return;
 	}
 
-	while (artists = data.shift()) {
-		artists.forEach(makePDF);
+	var type, people = [];
+	while (type = data.shift()) {
+		type.forEach(function (person) { people.push(person); });
 	}
+
+	if (process.argv.length >= 2) {
+		var range = process.argv[2].split('-');
+		range[0] = +range[0];
+		if (range[1]) range[1] = +range[1];
+		people = people.slice(range[0], range[1]);
+	}
+
+	async.eachLimit(people, 100, makePDF, function (err) {
+		console.log(err);
+	});
 });
 
 var all = [ 'Gesamtverzeichnis', [] ];
 for (i = 1; i <= 481; i++) all[1].push(i);
-if (!debug) makePDF(all, true);
+if (!debug) makePDF(all);

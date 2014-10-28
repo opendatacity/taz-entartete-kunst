@@ -7,6 +7,7 @@
 }
 .blur .wrapper {
 	transform: scale(0.9);
+	pointer-events: none;
 	// filter: blur(5px);
 }
 
@@ -24,10 +25,7 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
-	overflow: auto;
-	overflow-x: hidden;
-
-	padding: 0 2*($nav-width + $nav-padding);
+	overflow: hidden;
 
 	background: rgba(#000, .8);
 
@@ -39,18 +37,20 @@
 		margin: 0 0 -3em;
 		padding: 2em 1em;
 		text-align: center;
+		transition: all .2s ease;
 	}
 
 	img {
 		width: 100%;
 		height: auto;
-		max-width: 800px;
+		max-width: 650px;
+		filter: sharpen(1);
 		box-shadow: 0 .2em .5em rgba(#000, .3);
 	}
 
 	.btn {
 		@extend %alternate-font;
-		position: fixed;
+		position: absolute;
 		top: 14px;
 		right: 14px;
 		-webkit-appearance: none;
@@ -74,7 +74,7 @@
 	}
 
 	h2 {
-		position: fixed;
+		position: absolute;
 		margin: 0;
 		top: 16px;
 		right: 55px;
@@ -84,11 +84,23 @@
 		text-shadow: 0 1px 1px rgba(#000, .2);
 	}
 
+	.reader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		padding: 0 ($nav-width + 2 * $nav-padding);
+	}
+
 	nav {
 		$width: $nav-width;
-		position: fixed;
+		position: absolute;
 		padding: 0 $nav-padding;
-		overflow: auto;
+		overflow: hidden;
+		&:hover { overflow: auto; }
 		top: 0;
 		left: 0;
 		bottom: 0;
@@ -125,7 +137,7 @@
 		text-shadow: 0 1px 1px rgba(#000, .2);
 		border-radius: 4px;
 		font-size: .8em;
-		position: fixed;
+		position: absolute;
 		bottom: 14px;
 		right: 14px;
 		text-align: left;

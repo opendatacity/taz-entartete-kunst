@@ -24,8 +24,8 @@ var H = (function () {
 	}
 	
 	function imgSrc (pgNumber, thumbnail) {
-		if (thumbnail) return '/images/thumbs/'+pgNumber+'.jpg'
-		return '/images/reader/'+pgNumber+'.jpg';
+		if (thumbnail) return 'images/thumbs/'+pgNumber+'.jpg'
+		return 'images/reader/'+pgNumber+'.jpg';
 	}
 
 	return {
