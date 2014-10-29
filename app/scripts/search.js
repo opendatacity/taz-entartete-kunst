@@ -43,7 +43,7 @@ function dataSource (key) {
 	}
 }
 
-var $form, $searchField, findGlobal, clean, dirty;
+var $form, $searchField, findGlobal, clean, dirty, isClean, isDirty;
 
 function init () {
 	var typeahead = $('#search-query').typeahead({
@@ -65,11 +65,20 @@ function init () {
 
 	$(document).keydown(function (ev) {
 		var code = ev.keyCode;
-		if (code >= 65 && code <= 90 || code == 8) {
-			if (typeahead.is(':focus')) return;
+		if (typeahead.is(':focus')) return;
+		if (code >= 65 && code <= 90) {
+			// A-Z
 			typeahead.focus();
 			var pos = typeahead.val().length;
 			typeahead[0].setSelectionRange(pos, pos);
+			dirty(typeahead.val());
+		} else if (code === 8) {
+			// backspace
+			typeahead.focus();
+			var pos = typeahead.val().length;
+			typeahead[0].setSelectionRange(pos, pos);
+			if (isClean()) typeahead.val('');
+			dirty(typeahead.val());
 		}
 	});
 
@@ -77,25 +86,27 @@ function init () {
 }
 
 (function () {
-	var lastCleanState, isClean = true;
+	var lastCleanState, _isClean = true;
 	var $body = $(document.body);
 	clean = function (value) {
 		if (value) lastCleanState = value;
-		isClean = true;
+		_isClean = true;
 		$body.addClass('clean').removeClass('dirty');
 		$(returnObject).trigger('search:clean');
-	}
+	};
 	dirty = function (value) {
 		if (value !== lastCleanState) {
-			if (isClean) { // avoid unnecessary DOM manipulation
-				isClean = false;
+			if (_isClean) { // avoid unnecessary DOM manipulation
+				_isClean = false;
 				$body.removeClass('clean').addClass('dirty');
 				$(returnObject).trigger('search:dirty');
 			}
 		} else {
 			clean(value);
 		}
-	}
+	};
+	isClean = function () { return _isClean; };
+	isDirty = function () { return !_isClean; };
 })();
 
 function search (query) {
@@ -106,6 +117,8 @@ returnObject.init = init;
 returnObject.query = search;
 returnObject.clean = clean;
 returnObject.dirty = dirty;
+returnObject.isClean = isClean;
+returnObject.isDirty = isDirty;
 return returnObject;
 
 })();
