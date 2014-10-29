@@ -4,6 +4,8 @@ var fs = require('fs'),
 PDF = require('pdfkit'),
 async = require('async');
 
+var base = __dirname + '/../app/';
+
 var debug = false;
 
 function mm (x) {
@@ -27,11 +29,17 @@ function filename (string) {
 
 var size = [mm(210), mm(210*1.333)];
 
-var fonts = {
-	regular: 'app/fonts/andada/andada-regular-webfont.ttf',
-	italic: 'app/fonts/andada/andada-italic-webfont.ttf',
-	heading: 'app/fonts/andada/andadasc-regular-webfont.ttf'
+var fontsSrc = 'fonts/andada/',
+fonts = {
+	regular: fs.readFileSync(base+fontsSrc+'andada-regular-webfont.ttf'),
+	italic: fs.readFileSync(base+fontsSrc+'andada-italic-webfont.ttf'),
+	heading: fs.readFileSync(base+fontsSrc+'andadasc-regular-webfont.ttf')
 }
+function font (name) {
+	return fonts[name];
+}
+
+try { fs.mkdirSync(base+'pdf'); } catch (e) { if (e.code !== 'EEXIST') throw e; }
 
 function frontMatter (pdf) {
 	pdf.fontSize(9).text('', mm(30), mm(200));
@@ -41,22 +49,22 @@ function frontMatter (pdf) {
 		'eines maschinengeschriebenen Verzeichnisses des ',
 		{width: mm(110), continued: true}
 	)
-	.font(fonts.italic)
+	.font(font('italic'))
 	.text(
 		'Reichsministeriums für Volksaufklärung und Propaganda ',
 		{width: mm(110), continued: true}
 	)
-	.font(fonts.regular)
+	.font(font('regular'))
 	.text(
 		'um 1941/1942 entnommen. Diese wird vom Londoner ',
 		{width: mm(110), continued: true}
 	)
-	.font(fonts.italic)
+	.font(font('italic'))
 	.text(
 		'Victoria & Albert Museum ',
 		{width: mm(110), continued: true}
 	)
-	.font(fonts.regular)
+	.font(font('regular'))
 	.text(
 		'bereitgestellt und unterliegt einer Creative-Commons-Lizenz '+
 		'(CC-BY-NC 4.0 international).',
@@ -64,16 +72,16 @@ function frontMatter (pdf) {
 	);
 
 	pdf.moveDown(.5);
-	pdf.font(fonts.heading).text('lizenz', { characterSpacing: .9 });
-	pdf.font(fonts.regular).text('http://creativecommons.org/licenses/by-nc/4.0/legalcode');
+	pdf.font(font('heading')).text('lizenz', { characterSpacing: .9 });
+	pdf.font(font('regular')).text('http://creativecommons.org/licenses/by-nc/4.0/legalcode');
 
 	pdf.moveDown(.5);
-	pdf.font(fonts.heading).text('über dieses verzeichnis', { characterSpacing: .9 });
-	pdf.font(fonts.regular).text('http://vam.ac.uk/entartetekunst/');
+	pdf.font(font('heading')).text('über dieses verzeichnis', { characterSpacing: .9 });
+	pdf.font(font('regular')).text('http://vam.ac.uk/entartetekunst/');
 
 	pdf.moveDown(.5);
-	pdf.font(fonts.heading).text('heruntergeladen von', { characterSpacing: .9 });
-	pdf.font(fonts.regular).text('https://apps.opendatacity.de/entartete-kunst/');
+	pdf.font(font('heading')).text('heruntergeladen von', { characterSpacing: .9 });
+	pdf.font(font('regular')).text('https://apps.opendatacity.de/entartete-kunst/');
 }
 
 function makePDF (artist, callback) {
@@ -86,12 +94,12 @@ function makePDF (artist, callback) {
 		size: size,
 		margin: 0
 	});
-	pdf.pipe(fs.createWriteStream('app/pdf/' + filename(name) + '.pdf'));
+	pdf.pipe(fs.createWriteStream(base+'pdf/' + filename(name) + '.pdf'));
 
 	pdf.rect(0, 0, size[0], size[1]).fill('black');
 
 	pdf.fillColor('white');
-	pdf.font(fonts.regular);
+	pdf.font(font('regular'));
 
 	pdf.fontSize(24).text('»Entartete Kunst«', mm(30), mm(80));
 	pdf.fontSize(16).text(name, mm(30), mm(100));
@@ -104,7 +112,7 @@ function makePDF (artist, callback) {
 	while (page = pages.shift()) {
 		if (page === 7) skipAbbreviations = true;
 		pdf.addPage();
-		pdf.image('app/images/reader/'+page+'.jpg', 0, 0, { width: mm(210) });
+		pdf.image(base+'images/reader/'+page+'.jpg', 0, 0, { width: mm(210) });
 		pdf.fillColor('white');
 		pdf.text(page, size[0]-mm(40), size[1]-mm(12), { width: mm(30), align: 'right' });
 		i++;
@@ -113,14 +121,14 @@ function makePDF (artist, callback) {
 	if (!skipAbbreviations) {
 		// add abbreviations page
 		pdf.addPage();
-		pdf.image('app/images/reader/7.jpg', 0, 0, { width: mm(210) });
+		pdf.image(base+'images/reader/7.jpg', 0, 0, { width: mm(210) });
 	}
 
 	pdf.end();
 	if (callback) callback();
 }
 
-fs.readFile('app/data/raubkunst.json', function (err, data) {
+fs.readFile(base+'data/raubkunst.json', function (err, data) {
 	data = JSON.parse(data);
 
 	if (debug) {
@@ -133,7 +141,7 @@ fs.readFile('app/data/raubkunst.json', function (err, data) {
 		type.forEach(function (person) { people.push(person); });
 	}
 
-	if (process.argv.length >= 2) {
+	if (process.argv.length >= 3) {
 		var range = process.argv[2].split('-');
 		range[0] = +range[0];
 		if (range[1]) range[1] = +range[1];

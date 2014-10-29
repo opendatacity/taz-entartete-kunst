@@ -12,7 +12,7 @@ Benötigt werden `node`, `ruby` (mit SASS; `gem install sass`) und die ImageMagi
 
 ## Vor dem ersten Build
 
-Bevor die App zum ersten Mal gebaut werden kann, müssen noch einige Dinge erledigt werden. Diese können entweder auf einmal erledigt werden (`gulp first-build`) oder selektiv gestartet werden:
+Bevor die App zum ersten Mal gebaut werden kann, müssen noch einige Dinge erledigt werden. Diese können entweder auf einmal erledigt werden (`gulp setup`) oder selektiv gestartet werden:
 
 ### JSON generieren
 

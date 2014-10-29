@@ -1,11 +1,13 @@
 var fs = require('fs');
 
-var files = ['artists.tsv', 'merchants.tsv'],
+var src = __dirname + '/../data-src/',
+dest = __dirname + '/../app/data/',
+files = ['artists.tsv', 'merchants.tsv'],
 remainingCount = files.length,
 result = [];
 
 files.forEach(function (filename, i) {
-	fs.readFile(filename, process(i));
+	fs.readFile(src+filename, process(i));
 });
 
 var pageMap = [ 
@@ -53,7 +55,7 @@ function process (index) { return function (err, data) {
 function parseDone () {
 	remainingCount--;
 	if (remainingCount === 0) {
-		fs.writeFile('../app/data/raubkunst.json', JSON.stringify(result), function () {
+		fs.writeFile(dest+'raubkunst.json', JSON.stringify(result), function () {
 			console.log('Written.');
 		});
 	}

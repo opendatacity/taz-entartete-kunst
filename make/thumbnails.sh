@@ -1,7 +1,7 @@
 #!/bin/sh
 cd app/images/
+rm -r thumbs/
 mkdir thumbs
-rm thumbs/*
 n=0
 for file in reader/*; do
 	n=$((n+1))
