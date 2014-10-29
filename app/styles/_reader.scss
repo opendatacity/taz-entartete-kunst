@@ -133,18 +133,40 @@
 		h3, dl {
 			margin: 0;
 		}
+		$transition: all .1s ease;
+
+		position: absolute;
 
 		text-shadow: 0 1px 1px rgba(#000, .2);
 		border-radius: 4px;
 		font-size: .8em;
-		position: absolute;
-		bottom: 14px;
+		top: 55px;
 		right: 14px;
 		text-align: left;
 		line-height: 1.3em;
 
+		padding: .5em;
+
+		transform-origin: top right;
+		transform: scale(0.3);
+		transition: $transition;
+
+		width: 20%;
+		min-width: 250px;
+		max-width: 100%;
+
+		h3 {
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			margin-top: -1em;
+			text-align: center;
+			transform: scale(3);
+			transition: $transition;
+		}
 		dl {
-			display: none;
+			transition: $transition;
+			opacity: .3;
 		}
 		dt {
 			float: left;
@@ -156,17 +178,14 @@
 			margin-left: 3.3em;
 		}
 		&:hover {
-			padding: .5em;
-			width: 20%;
-			min-width: 250px;
-			max-width: 100%;
 			background-color: rgba(#000, .8);
+			transform: none;
 			dl {
-				display: block;
-				will-change: display;
+				opacity: 1;
 			}
 			h3 {
-				display: none;
+				opacity: 0;
+				transform: scale(1);
 			}
 		}
 	}
