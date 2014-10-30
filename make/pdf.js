@@ -87,11 +87,11 @@ function frontMatter (pdf) {
 
 	pdf.moveDown(.5);
 	pdf.font(font('heading')).text('über dieses verzeichnis', { characterSpacing: .9 });
-	pdf.font(font('regular')).text('http://vam.ac.uk/entartetekunst/');
+	pdf.font(font('regular')).text('http://vam.ac.uk/entartetekunst');
 
 	pdf.moveDown(.5);
 	pdf.font(font('heading')).text('heruntergeladen von', { characterSpacing: .9 });
-	pdf.font(font('regular')).text('https://apps.opendatacity.de/entartete-kunst/');
+	pdf.font(font('regular')).text('http://kunstraub.taz.de');
 }
 
 function makePDF (artist, callback) {

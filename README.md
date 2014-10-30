@@ -1,6 +1,6 @@
 # Liste der »Entarteten Kunst«
 
-Ein Projekt von taz und OpenDataCity; Oktober 2014
+[Ein Projekt von taz und OpenDataCity; Oktober 2014](http://kunstraub.taz.de)
 
 
 ## Voraussetzungen
