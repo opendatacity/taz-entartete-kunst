@@ -6,6 +6,7 @@ $(function () {
 		$this.click(function (ev) {
 			ev.preventDefault();
 			$togglee.toggleClass('hidden');
+			$(window).scrollTop($togglee.position().top);
 		});
 	});
 });
