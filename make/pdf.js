@@ -38,6 +38,14 @@ fonts = {
 function font (name) {
 	return fonts[name];
 }
+var imageCache = {};
+function image (page) {
+	var filename = base+'images/reader/'+page+'.jpg';
+	if (imageCache[filename]) return imageCache[filename];
+	var buffer = fs.readFileSync(filename);
+	imageCache[filename] = buffer;
+	return buffer;
+}
 
 try { fs.mkdirSync(base+'pdf'); } catch (e) { if (e.code !== 'EEXIST') throw e; }
 
@@ -112,7 +120,7 @@ function makePDF (artist, callback) {
 	while (page = pages.shift()) {
 		if (page === 7) skipAbbreviations = true;
 		pdf.addPage();
-		pdf.image(base+'images/reader/'+page+'.jpg', 0, 0, { width: mm(210) });
+		pdf.image(image(page), 0, 0, { width: mm(210) });
 		pdf.fillColor('white');
 		pdf.text(page, size[0]-mm(40), size[1]-mm(12), { width: mm(30), align: 'right' });
 		i++;
