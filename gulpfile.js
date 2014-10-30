@@ -58,7 +58,6 @@ gulp.task('images', function () {
 gulp.task('data', function (cb) {
 	// Yes, this is quick and dirty.
 	exec('node make/data.js', function (err, stdout, stderr) {
-		console.log(stderr);
 		cb(err);
 	});
 });
@@ -67,17 +66,30 @@ gulp.task('thumbnails', function (cb) {
 	console.log('Generating thumbnails.');
 	console.log('This task can take several minutes and is not designed to be run frequently.');
 	exec('make/thumbnails.sh', function (err, stdout, stderr) {
-		console.log(stderr);
 		cb(err);
 	});
 });
 
 gulp.task('pdf', function (cb) {
-	console.log('Generating PDFs.');
-	var command = 'node make/pdf.js';
+	// We need to do this in smaller batches because file handling in pdfkit is
+	// terribly inefficient; with many files it _will_ eventually crash with a
+	// "too many open files" error.
+	var json = JSON.parse(fs.readFileSync('app/data/raubkunst.json'));
+	var length = json.reduce(function (p, c) {
+		return p + c.length;
+	}, 0);
+
+	var command = 'node make/pdf.js', commands = '',
+	batchSize = 500;
+
+	for (var i=0, n=Math.ceil(length/batchSize); i<n; i++) {
+		commands += command + ' ' + (i*batchSize) + '-' + ((i+1)*batchSize - 1) + '; ';
+	}
+
+	console.log('Generating ' + length + ' PDFs in ' + n + ' batch(es).');
 	console.log('This task can take several minutes and is not designed to be run frequently.');
-	exec(command, function (err, stdout, stderr) {
-		console.log(stderr);
+
+	exec(commands, function (err, stdout, stderr) {
 		if (stderr.indexOf('EMFILE') !== -1) {
 			console.log([
 				"Crashed with 'too many files' error due to terribly inefficient file handling",
@@ -85,7 +97,8 @@ gulp.task('pdf', function (cb) {
 				"in several smaller batches, like this:","",
 				"    $ " + command + " 0-500",
 				"    $ " + command + " 501-1000",
-				"etc."
+				"etc.", "",
+				"The failed commands were ", commands 
 			].join("\n"))
 		}
 		cb(err);
