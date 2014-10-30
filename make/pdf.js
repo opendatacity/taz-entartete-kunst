@@ -8,6 +8,8 @@ var base = __dirname + '/../app/';
 
 var debug = false;
 
+var undefined;
+
 function mm (x) {
 	return x / 25.4 * 72;
 }
@@ -96,7 +98,9 @@ function makePDF (artist, callback) {
 	var skipAbbreviations = false;
 	var name = artist[0], pages = artist[1];
 
-	console.log(name);
+	if (name === undefined) return;
+
+	console.log(name, pages.length);
 
 	var pdf = new PDF({
 		size: size,
@@ -129,7 +133,7 @@ function makePDF (artist, callback) {
 	if (!skipAbbreviations) {
 		// add abbreviations page
 		pdf.addPage();
-		pdf.image(image(page), 0, 0, { width: mm(210) });
+		pdf.image(image(7), 0, 0, { width: mm(210) });
 	}
 
 	pdf.end();
