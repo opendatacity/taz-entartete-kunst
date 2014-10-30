@@ -1,0 +1,1 @@
+The files in this directory have been extracted from [a publication by the _Victoria and Albert Museum_, London](http://www.vam.ac.uk/content/articles/e/entartete-kunst/). It is available under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/deed.en).
