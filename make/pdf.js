@@ -129,7 +129,7 @@ function makePDF (artist, callback) {
 	if (!skipAbbreviations) {
 		// add abbreviations page
 		pdf.addPage();
-		pdf.image(base+'images/reader/7.jpg', 0, 0, { width: mm(210) });
+		pdf.image(image(page), 0, 0, { width: mm(210) });
 	}
 
 	pdf.end();
