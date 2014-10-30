@@ -74,9 +74,20 @@ gulp.task('thumbnails', function (cb) {
 
 gulp.task('pdf', function (cb) {
 	console.log('Generating PDFs.');
+	var command = 'node make/pdf.js';
 	console.log('This task can take several minutes and is not designed to be run frequently.');
-	exec('node make/pdf.js', function (err, stdout, stderr) {
+	exec(command, function (err, stdout, stderr) {
 		console.log(stderr);
+		if (stderr.indexOf('EMFILE') !== -1) {
+			console.log([
+				"Crashed with 'too many files' error due to terribly inefficient file handling",
+				"in pdfkit. Try increasing your system's limit or run the script manually",
+				"in several smaller batches, like this:","",
+				"    $ " + command + " 0-500",
+				"    $ " + command + " 501-1000",
+				"etc."
+			].join("\n"))
+		}
 		cb(err);
 	});
 });
