@@ -93,7 +93,7 @@ function Reader (element) {
 		$img.addClass('lazy');
 		$img.attr('src', H.imgSrc(pgNumber, true));
 		$img.attr('data-highres', H.imgSrc(pgNumber));
-		$img.attr(config.pageSize);
+		$img.attr({ width: 800, height: 1067 });
 		$p.append($img);
 		$p.attr('id', 'reader-' + pgNumber);
 		$p.addClass('.page');
