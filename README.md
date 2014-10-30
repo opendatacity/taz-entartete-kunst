@@ -5,7 +5,7 @@ Ein Projekt von taz und OpenDataCity; Oktober 2014
 
 ## Voraussetzungen
 
-Benötigt werden `node`, `ruby` (mit SASS; `gem install sass`) und die ImageMagick-Bibliothek. Anschließend kann ein Haufen Dependenzen automatisch installiert werden:
+Benötigt werden `node`, `bower`, `ruby` (für Sass; `gem install sass`) und die ImageMagick-Bibliothek. Anschließend kann ein Haufen Dependenzen automatisch installiert werden:
 
     $ npm install
     $ bower install
@@ -18,7 +18,7 @@ Bevor die App zum ersten Mal gebaut werden kann, müssen noch einige Dinge erled
 
 Zunächst empfiehlt es sich, die TSV-Dateien (ursprünglich aus Google Docs) in einen JSON-Datensatz zu konvertieren, damit weitere Schritte darauf aufbauen können.
 
-    $ gulp json
+    $ gulp data
 
 ### Vorschaubilder
 
