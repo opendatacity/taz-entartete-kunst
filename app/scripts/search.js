@@ -74,7 +74,7 @@ function init () {
 			// displayed in an iframe. There doesn't seem to be a non-hacky solution to
 			// this, so we'll resort to putting in a space.
 			var $t = $(this);
-			$t.val(' ');
+			if ($t.val().length === 0) $t.val(' ');
 		});
 	}
 
