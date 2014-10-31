@@ -100,7 +100,7 @@ artistDownloadButton = (function () {
 
 $searchForm.submit(function (ev) {
 	// If page is displayed in a frame, we want the default behaviour
-	if (window !== window.top) return true;
+	if (H.framed) return true;
 	ev.preventDefault();
 
 	var v = searchField.val();

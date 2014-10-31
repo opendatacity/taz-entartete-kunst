@@ -28,9 +28,14 @@ var H = (function () {
 		return 'images/reader/'+pgNumber+'.jpg';
 	}
 
+	var mobile = !!(navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i));
+	var framed = (window !== window.top)
+
 	return {
 		zerofill: zerofill,
 		imgSrc: imgSrc,
-		filename: filename
+		filename: filename,
+		mobile: mobile,
+		framed: framed
 	}
 })();

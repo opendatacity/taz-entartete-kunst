@@ -40,6 +40,7 @@ function dataSource (key) {
 			header: '<h3>'+headers[key]+'</h3>',
 			empty: '<p class="empty">Keine Ergebnisse</p>',
 			suggestion: function(d) {
+				// Otherwise suggestions wouldn't be tappable on iOS
 				return '<p class="needsclick">'+d[0]+'</p>';
 			}
 		}
@@ -65,6 +66,17 @@ function init () {
 	typeahead.on('typeahead:selected', function () { $form.submit(); });
 
 	typeahead.focus();
+
+	// Mobile optimization
+	if (H.framed) {
+		typeahead.on('touchend', function () {
+			// There are weird bugs where the search field doesn't focus on iOS when
+			// displayed in an iframe. There doesn't seem to be a non-hacky solution to
+			// this, so we'll resort to putting in a space.
+			var $t = $(this);
+			$t.val(' ');
+		});
+	}
 
 	$(document).keydown(function (ev) {
 		var code = ev.keyCode;
