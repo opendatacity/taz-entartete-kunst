@@ -65,7 +65,7 @@ function init () {
 
 	typeahead.on('typeahead:selected', function () { $form.submit(); });
 
-	typeahead.focus();
+	if (!H.framed) typeahead.focus();
 
 	// Mobile optimization
 	if (H.framed) {
