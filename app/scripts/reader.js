@@ -76,12 +76,11 @@ function Reader (element) {
 		ev.stopImmediatePropagation();
 		$(this).parent().toggleClass('zoom');
 	});
-	// We're already doing this with css, but for some bizzare reason this causes
-	// a bug in Chrome where the height of the elements previously invisible
-	// is not re-calculated. This forces the browser to update the heights.
-	// That bug was not fun to work around.
+
+	$overlay.on('click', 'aside', function (ev) { ev.stopImmediatePropagation(); });
 	// $overlay.on('mouseenter', function (ev) { $(this).find('hideable').removeClass('hidden'); });
 	// $overlay.on('mouseleave', function (ev) { $(this).find('hideable').addClass('hidden'); });
+
 	$overlay.click(hideOverlay);
 	hideOverlay();
 

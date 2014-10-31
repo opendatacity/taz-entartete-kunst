@@ -38,7 +38,10 @@ function dataSource (key) {
 		displayKey: function (el) { return el[0]; },
 		templates: {
 			header: '<h3>'+headers[key]+'</h3>',
-			empty: '<p class="empty">Keine Ergebnisse</p>'
+			empty: '<p class="empty">Keine Ergebnisse</p>',
+			suggestion: function(d) {
+				return '<p class="needsclick">'+d[0]+'</p>';
+			}
 		}
 	}
 }

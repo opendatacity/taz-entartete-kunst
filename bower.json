@@ -4,7 +4,8 @@
   "dependencies": {
     "jquery": "~1.11.0",
     "typeahead.js": "~0.10.5",
-    "fuse.js": "~1.2.0"
+    "fuse.js": "~1.2.0",
+    "fastclick": "~1.0.3"
   },
   "devDependencies": {}
 }

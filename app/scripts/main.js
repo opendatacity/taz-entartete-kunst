@@ -8,6 +8,8 @@ $body = $(document.body),
 $searchForm = $('#form form'),
 searchField;
 
+new FastClick(document.body);
+
 var initialQuery = (function () {
 	var q = window.location.search.match(/(?:\?|&)q=([^&#]*)/);
 	if (q === null) return null;
