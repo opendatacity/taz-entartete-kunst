@@ -9,7 +9,7 @@ function responsive () {
 	w = $(window).width();
 	if (w < 550 && searchField.state !== 0) {
 		searchField.state = 0;
-		searchField.$el.attr('placeholder', 'Künstler·in, Kunsthändler·in');
+		searchField.$el.attr('placeholder', searchField.$el.attr('data-placeholder-short'));
 	} else if (w >= 550 && searchField.state !== 1) {
 		searchField.state = 1;
 		searchField.$el.attr('placeholder', searchField.original);

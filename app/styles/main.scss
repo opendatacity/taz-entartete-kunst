@@ -29,6 +29,14 @@ header, #read p, footer, #form, #license {
 
 header {
 	@extend %no-select;
+	.language-switch {
+		@extend %alternate-font;
+		font-size: .8em;
+		position: absolute;
+		top: .5em;
+		right: .5em;
+		margin: 0;
+	}
 }
 
 h1, h2, h3, .tf-query {

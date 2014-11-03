@@ -2,8 +2,15 @@ var search = (function () {
 
 var returnObject = {};
 
-var headers = {
-	artists: 'Künstler·innen', merchants: 'Händler·innen'
+var headers;
+if (lang === 'en') {
+	headers = {
+		artists: 'Artists', merchants: 'Merchants'
+	}
+} else {
+	headers = {
+		artists: 'Künstler·innen', merchants: 'Händler·innen'
+	}
 }
 
 function makeFindFunction (key, async) {
@@ -38,7 +45,10 @@ function dataSource (key) {
 		displayKey: function (el) { return el[0]; },
 		templates: {
 			header: '<h3>'+headers[key]+'</h3>',
-			empty: '<p class="empty">Keine Ergebnisse</p>',
+			empty:
+				( lang === 'en' ?
+				'<p class="empty">No results</p>' :
+				'<p class="empty">Keine Ergebnisse</p>'),
 			suggestion: function(d) {
 				// Otherwise suggestions wouldn't be tappable on iOS
 				return '<p class="needsclick">'+d[0]+'</p>';

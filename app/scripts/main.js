@@ -92,7 +92,11 @@ artistDownloadButton = (function () {
 		}
 		var name = item[0], pages = item[1].length, filename = H.filename(name);
 		$btn.removeClass('disabled');
-		$desc.text('Alle Seiten zu ' + name + ' herunterladen');
+		if (lang === 'en') {
+			$desc.text('Download All Pages about ' + name);
+		} else {
+			$desc.text('Alle Seiten zu ' + name + ' herunterladen');
+		}
 		$btn.attr('href', 'pdf/' + filename + '.pdf');
 		$filesize.text('ca. ' + Math.ceil((pages+1)*.11) + ' MB');
 	}
